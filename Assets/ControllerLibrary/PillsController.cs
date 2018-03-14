@@ -15,7 +15,7 @@ public class PillsController : MonoBehaviour {
 		}
 		if (gameControllerObject == null)
 		{
-			Debug.Log("Cannot find 'Scene2GameController' script");
+			Debug.Log("Cannot find 'GameController' script");
 		}
 	}
 
