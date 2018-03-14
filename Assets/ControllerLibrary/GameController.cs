@@ -20,13 +20,12 @@ public class GameController : MonoBehaviour {
 	void Update () {
 		if (TimeOfSlowing - Time.time > DurationOfRising + DurationOfPlateau)
 			Time.timeScale = 1.0f - (DurationOfRising / (DurationOfRising - TimeOfSlowing - DurationOfDecreasing - DurationOfPlateau + Time.time) * Intensity);
-		else if (TimeOfSlowing - Time.time > DurationOfPlateau)
+		else if (TimeOfSlowing - Time.time > DurationOfRising)
 			Time.timeScale = 1.0f - Intensity;
 		else if (TimeOfSlowing - Time.time > 0)
-			Time.timeScale = 1.0f - ((TimeOfSlowing - Time.time) / DurationOfDecreasing * Intensity);
+			Time.timeScale = 1.0f - Intensity;//- ((TimeOfSlowing - Time.time) / DurationOfDecreasing * Intensity);
 		else
 			Time.timeScale = 1.0f;
-		Debug.Log (Time.time);
 	}
 
 	public void SlowTheTime() {
