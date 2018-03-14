@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UpAndDown : MonoBehaviour
+public class UpAndDownController : MonoBehaviour
 {
 
     public float speed = 3f;
