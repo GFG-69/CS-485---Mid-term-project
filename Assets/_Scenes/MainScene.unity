@@ -1147,6 +1147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a27e4745eb2a4ab36864a3815b13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  drunkIntensity: 3
   pillsBoostSpeed: 2
   pillsBoostJump: 2
   IntensityMax: 0.5
@@ -3699,8 +3700,8 @@ Transform:
     type: 2}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2036897029}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.65, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.6500015, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1278129588}
@@ -3721,7 +3722,6 @@ MonoBehaviour:
   smoothV: {x: 0, y: 0}
   sensivity: 5
   smoothing: 2
-  DisplayingSin: {fileID: 278074527}
 --- !u!81 &2036897032
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3795,7 +3795,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 1278129581}
-  DisplayingSin: {fileID: 278074527}
 --- !u!1001 &2048905338
 Prefab:
   m_ObjectHideFlags: 0

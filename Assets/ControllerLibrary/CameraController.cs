@@ -1,16 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class CameraController : MonoBehaviour {
 
     public GameObject player;
 
-	public Text DisplayingSin;
-
     private Vector3 offset;
 	private GameController gameController;
+	private float x;
+	private float y;
 
     void Start()
     {
@@ -26,9 +25,9 @@ public class CameraController : MonoBehaviour {
 		}
     }
 
-	void Update() {
-		Camera.main.fieldOfView = 60.0f + (Mathf.Sin (Time.time * 5.0f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 2) * Mathf.Sin (Time.time * 2) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax;
-		DisplayingSin.text += "\n Focus: " + (Mathf.Sin (Time.time * 5.0f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 2) * Mathf.Sin (Time.time * 2) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax;
+	void Update()
+	{
+		Camera.main.fieldOfView = 60.0f + gameController.getDrunkenCameraFocal();
 	}
 
     void LateUpdate()

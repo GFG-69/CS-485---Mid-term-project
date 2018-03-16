@@ -49,6 +49,7 @@ public class RunnerController : MonoBehaviour {
 
         controller.Move(moveDirSide * Time.deltaTime);
         controller.Move(moveDirForward * Time.deltaTime);
+		transform.position += new Vector3 (gameController.getDrunkenPlayerX(), 0, gameController.getDrunkenPlayerZ());
 
         bool isOnStructure = Physics.CheckSphere(feet.position, 0.1f, structure, QueryTriggerInteraction.Ignore);
         if (isOnStructure)

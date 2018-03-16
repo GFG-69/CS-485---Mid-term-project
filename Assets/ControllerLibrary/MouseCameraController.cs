@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class MouseCameraController : MonoBehaviour {
 
@@ -10,8 +9,6 @@ public class MouseCameraController : MonoBehaviour {
 
     public float sensivity = 5.0f;
     public float smoothing = 2.0f;
-
-	public Text DisplayingSin;
 
 	private GameController gameController;
 
@@ -42,10 +39,8 @@ public class MouseCameraController : MonoBehaviour {
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
         if (Cursor.lockState == CursorLockMode.Locked)
         {
-			transform.localRotation = Quaternion.AngleAxis(-mouseLook.y + ((Mathf.Sin (Time.time * 6.0f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 4) * Mathf.Sin (Time.time * 3) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax), Vector3.right);
-			player.transform.localRotation = Quaternion.AngleAxis(mouseLook.x + ((Mathf.Sin (Time.time * 3.5f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 3) * Mathf.Sin (Time.time * 4) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax) * 2, player.transform.up);
-			DisplayingSin.text += "\n Hor: " + ((Mathf.Sin (Time.time * 6.0f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 4) * Mathf.Sin (Time.time * 3) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax);
-			DisplayingSin.text += "\n Ver: " + ((Mathf.Sin (Time.time * 3.5f) * Mathf.Sin (Time.time) * Mathf.Sin (Time.time / 3) * Mathf.Sin (Time.time * 4) * 10.0f) * (gameController.IntensityMax - gameController.getIntensity()) / gameController.IntensityMax) * 2;
+			transform.localRotation = Quaternion.AngleAxis(-mouseLook.y + gameController.getDrunkenCameraX(), Vector3.right);
+			player.transform.localRotation = Quaternion.AngleAxis(mouseLook.x + gameController.getDrunkenCameraY(), player.transform.up);
         }
     }
 }
