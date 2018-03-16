@@ -80,7 +80,10 @@
   <ItemGroup>
     <Compile Include="Assets\ControllerLibrary\CameraController.cs" />
     <Compile Include="Assets\ControllerLibrary\CircleRotator.cs" />
+    <Compile Include="Assets\ControllerLibrary\GameController.cs" />
     <Compile Include="Assets\ControllerLibrary\MouseCameraController.cs" />
+    <Compile Include="Assets\ControllerLibrary\PillsController.cs" />
+    <Compile Include="Assets\ControllerLibrary\PillsEffect.cs" />
     <Compile Include="Assets\ControllerLibrary\RunnerController.cs" />
     <Compile Include="Assets\ControllerLibrary\UpAndDownController.cs" />
   </ItemGroup>
