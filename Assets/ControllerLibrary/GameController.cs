@@ -26,6 +26,16 @@ public class GameController : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		setIntensity ();
+		Time.timeScale = 1.0f - Intensity;
+		//affiche les tests
+		if (DurationOfSlowing - Time.time > 0.0f)
+			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + Intensity;
+		else
+			DisplayingTime.text = "";
+	}
+
+	private void setIntensity() {
 		if (DurationOfSlowing - Time.time > DurationOfDecreasing + DurationOfPlateau)
 			Intensity = IntensityMax * (Time.time - TimeOfSlowing) / DurationOfRising;
 		else if (DurationOfSlowing - Time.time > DurationOfDecreasing)
@@ -34,11 +44,6 @@ public class GameController : MonoBehaviour {
 			Intensity = IntensityMax * (DurationOfSlowing - Time.time) / DurationOfDecreasing;
 		else
 			Intensity = 0.0f;
-		if (DurationOfSlowing - Time.time > 0.0f)
-			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + Intensity;
-		else
-			DisplayingTime.text = "";
-		Time.timeScale = 1.0f - Intensity;
 	}
 
 	public void SlowTheTime() {

@@ -940,7 +940,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -139.1983}
-  m_SizeDelta: {x: 500, y: 100}
+  m_SizeDelta: {x: 500, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &278074527
 MonoBehaviour:
@@ -3684,6 +3684,7 @@ GameObject:
   - component: {fileID: 2036897033}
   - component: {fileID: 2036897032}
   - component: {fileID: 2036897031}
+  - component: {fileID: 2036897036}
   m_Layer: 10
   m_Name: Eyes
   m_TagString: MainCamera
@@ -3720,6 +3721,7 @@ MonoBehaviour:
   smoothV: {x: 0, y: 0}
   sensivity: 5
   smoothing: 2
+  DisplayingSin: {fileID: 278074527}
 --- !u!81 &2036897032
 AudioListener:
   m_ObjectHideFlags: 0
@@ -3781,6 +3783,19 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &2036897036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2036897029}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47f84bba8bcd0864aa08490eb160fd81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 1278129581}
+  DisplayingSin: {fileID: 278074527}
 --- !u!1001 &2048905338
 Prefab:
   m_ObjectHideFlags: 0
