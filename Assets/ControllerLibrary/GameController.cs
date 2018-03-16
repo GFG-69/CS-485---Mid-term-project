@@ -9,7 +9,8 @@ public class GameController : MonoBehaviour {
 	private float TimeOfSlowing;
 	private float Intensity;
 
-	public float pillsBoost;
+	public float pillsBoostSpeed;
+	public float pillsBoostJump;
 	public float IntensityMax;
 	public float DurationOfRising;
 	public float DurationOfPlateau;

@@ -43,7 +43,7 @@ public class RunnerController : MonoBehaviour {
         float horiz = Input.GetAxis("Horizontal");
         float vert = Input.GetAxis("Vertical");
 
-		freezeIntensity = (1.0f / (1.0f - gameController.getIntensity())) * (1 + gameController.pillsBoost);
+		freezeIntensity = (1.0f / (1.0f - gameController.getIntensity())) + gameController.getIntensity() * gameController.pillsBoostSpeed;
 		Vector3 moveDirSide = transform.right * horiz * speed * freezeIntensity;
 		Vector3 moveDirForward = transform.forward * vert * speed * freezeIntensity;
 
@@ -57,10 +57,11 @@ public class RunnerController : MonoBehaviour {
             fallingVelocity.y -= gravity * Time.deltaTime;
         if (Input.GetButtonDown("Jump") && isOnStructure)
         {
-			fallingVelocity.y = Mathf.Sqrt(gravity * jumpHeight);
+			fallingVelocity.y = Mathf.Sqrt(gravity * jumpHeight) + gameController.getIntensity() * gameController.pillsBoostJump;
         }
         controller.Move(fallingVelocity * Time.deltaTime);
 
+		//Pour les test :
         if (Input.GetKeyDown("escape"))
         {
                 Cursor.lockState = CursorLockMode.None;
