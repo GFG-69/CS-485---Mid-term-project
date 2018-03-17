@@ -7,7 +7,8 @@ public class GameController : MonoBehaviour {
 	
 	private float DurationOfSlowing;
 	private float TimeOfSlowing;
-	private float Intensity;
+	private float pillsIntensity;
+	private float drunkIntensity;
 
 	private float randCF1;
 	private float randCF2;
@@ -24,6 +25,14 @@ public class GameController : MonoBehaviour {
 	private float randCX5;
 	private float randCX6;
 	private float randCX7;
+
+	private float randCZ1;
+	private float randCZ2;
+	private float randCZ3;
+	private float randCZ4;
+	private float randCZ5;
+	private float randCZ6;
+	private float randCZ7;
 
 	private float randCY1;
 	private float randCY2;
@@ -49,7 +58,8 @@ public class GameController : MonoBehaviour {
 	private float randPZ6;
 	private float randPZ7;
 
-	public float drunkIntensity;
+	public float movementIntensity;
+	public float drunkIntensityMin;
 	public float pillsBoostSpeed;
 	public float pillsBoostJump;
 	public float IntensityMax;
@@ -61,7 +71,7 @@ public class GameController : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		DurationOfSlowing = 0.0f;
-		Intensity = 0.0f;
+		pillsIntensity = 0.0f;
 		DisplayingTime.text = "";
 		setDrunkenRandom ();
 	}
@@ -69,34 +79,35 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		setIntensity ();
-		Time.timeScale = 1.0f - Intensity;
+		Time.timeScale = 1.0f - pillsIntensity;
+		drunkIntensity = getDrunkIntensity();
 		//affiche les tests
 		if (DurationOfSlowing - Time.time > 0.0f)
-			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + Intensity;
+			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + pillsIntensity;
 		else
 			DisplayingTime.text = "";
 	}
 
 	private void setIntensity() {
 		if (DurationOfSlowing - Time.time > DurationOfDecreasing + DurationOfPlateau)
-			Intensity = IntensityMax * (Time.time - TimeOfSlowing) / DurationOfRising;
+			pillsIntensity = IntensityMax * (Time.time - TimeOfSlowing) / DurationOfRising;
 		else if (DurationOfSlowing - Time.time > DurationOfDecreasing)
-			Intensity = IntensityMax;
+			pillsIntensity = IntensityMax;
 		else if (DurationOfSlowing - Time.time > 0.0f)
-			Intensity = IntensityMax * (DurationOfSlowing - Time.time) / DurationOfDecreasing;
+			pillsIntensity = IntensityMax * (DurationOfSlowing - Time.time) / DurationOfDecreasing;
 		else
-			Intensity = 0.0f;
+			pillsIntensity = 0.0f;
 	}
 
 	public void SlowTheTime() {
-		if (Intensity == 0.0f) {
+		if (pillsIntensity == 0.0f) {
 			DurationOfSlowing = Time.time + DurationOfRising + DurationOfPlateau + DurationOfDecreasing;
 			TimeOfSlowing = Time.time;
 		}
 	}
 
 	public float getIntensity() {
-		return (Intensity);
+		return (pillsIntensity);
 	}
 
 	private void setDrunkenRandom()
@@ -116,6 +127,14 @@ public class GameController : MonoBehaviour {
 		randCX5 = Random.Range(0.0f, 1.0f);
 		randCX6 = Random.Range(3.5f, 4.5f);
 		randCX7 = Random.Range(0.0f, 1.0f);
+
+		randCZ1 = Random.Range(2.0f, 3.0f);
+		randCZ2 = Random.Range(0.0f, 1.0f);
+		randCZ3 = Random.Range(0.0f, 1.0f);
+		randCZ4 = Random.Range(3.0f, 4.0f);
+		randCZ5 = Random.Range(0.0f, 1.0f);
+		randCZ6 = Random.Range(3.0f, 4.0f);
+		randCZ7 = Random.Range(0.0f, 1.0f);
 
 		randCY1 = Random.Range(5.5f, 6.5f);
 		randCY2 = Random.Range(0.0f, 1.0f);
@@ -144,7 +163,7 @@ public class GameController : MonoBehaviour {
 
 	public float getDrunkenCameraFocal()
 	{
-		return ((Mathf.Sin (Time.time * randCF1 + randCF2) * Mathf.Sin (Time.time + randCF3) * Mathf.Sin (Time.time / randCF4 + randCF5) * Mathf.Sin (Time.time * randCF6 + randCF7) * drunkIntensity) * (IntensityMax - getIntensity ()) / IntensityMax * 3.0f);
+		return ((Mathf.Sin (Time.time * randCF1 + randCF2) * Mathf.Sin (Time.time + randCF3) * Mathf.Sin (Time.time / randCF4 + randCF5) * Mathf.Sin (Time.time * randCF6 + randCF7) * drunkIntensity) * (IntensityMax - getIntensity ()) / IntensityMax * 4.0f);
 	}
 
 	public float getDrunkenCameraX()
@@ -154,17 +173,27 @@ public class GameController : MonoBehaviour {
 
 	public float getDrunkenCameraY()
 	{
-		return (((Mathf.Sin (Time.time * randCY1 + randCY2) * Mathf.Sin (Time.time + randCY3) * Mathf.Sin (Time.time / randCY4 + randCY5) * Mathf.Sin (Time.time * randCY6 + randCY7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) * 6.0f);
+		return (((Mathf.Sin (Time.time * randCY1 + randCY2) * Mathf.Sin (Time.time + randCY3) * Mathf.Sin (Time.time / randCY4 + randCY5) * Mathf.Sin (Time.time * randCY6 + randCY7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) * 4.0f);
+	}
+
+	public float getDrunkenCameraZ()
+	{
+		return (((Mathf.Sin (Time.time * randCZ1 + randCZ2) * Mathf.Sin (Time.time + randCZ3) * Mathf.Sin (Time.time / randCZ4 + randCZ5) * Mathf.Sin (Time.time * randCZ6 + randCZ7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) * 4.0f);
 	}
 
 	public float getDrunkenPlayerX()
 	{
-		return (((Mathf.Sin (Time.time * randPX1 + randPX2) * Mathf.Sin (Time.time + randPX3) * Mathf.Sin (Time.time / randPX4 + randPX5) * Mathf.Sin (Time.time * randPX6 + randPX7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) / 60);
+		return (((Mathf.Sin (Time.time * randPX1 + randPX2) * Mathf.Sin (Time.time + randPX3) * Mathf.Sin (Time.time / randPX4 + randPX5) * Mathf.Sin (Time.time * randPX6 + randPX7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) / 40);
 	}
 
 	public float getDrunkenPlayerZ()
 	{
-		return (((Mathf.Sin (Time.time * randPZ1 + randPZ2) * Mathf.Sin (Time.time + randPZ3) * Mathf.Sin (Time.time / randPZ4 + randPZ5) * Mathf.Sin (Time.time * randPZ6 + randPZ7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) / 60);
+		return (((Mathf.Sin (Time.time * randPZ1 + randPZ2) * Mathf.Sin (Time.time + randPZ3) * Mathf.Sin (Time.time / randPZ4 + randPZ5) * Mathf.Sin (Time.time * randPZ6 + randPZ7) * drunkIntensity) * (IntensityMax - getIntensity()) / IntensityMax) / 50);
+	}
+
+	private float getDrunkIntensity()
+	{
+		return (((Mathf.Abs(Input.GetAxis("Horizontal"))) + (Mathf.Abs(Input.GetAxis("Vertical")))) * movementIntensity + drunkIntensityMin);
 	}
 
 }
