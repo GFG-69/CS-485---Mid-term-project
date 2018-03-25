@@ -1147,6 +1147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de2a27e4745eb2a4ab36864a3815b13b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPaused: 0
+  timeBeforeStarting: 3
   BlueIntensity: 0.3
   DurationOfAwake: 10
   movementIntensity: 0.8

@@ -47,7 +47,7 @@ public class RunnerController : MonoBehaviour {
 		Vector3 moveDirSide = transform.right * horiz * speed * freezeIntensity;
 		Vector3 moveDirForward = transform.forward * vert * speed * freezeIntensity;
 
-		if (!gameController.getIsAsleep ())
+		if (!gameController.getIsAsleep () && !gameController.isPaused && Time.time > gameController.timeBeforeStarting)
 		{
         	controller.Move(moveDirSide * Time.deltaTime);
         	controller.Move(moveDirForward * Time.deltaTime);
@@ -59,7 +59,7 @@ public class RunnerController : MonoBehaviour {
             fallingVelocity.y = 0f;
         else
             fallingVelocity.y -= gravity * Time.deltaTime;
-		if (Input.GetButtonDown("Jump") && isOnStructure && !gameController.getIsAsleep())
+		if (Input.GetButtonDown("Jump") && isOnStructure && !gameController.getIsAsleep() && !gameController.isPaused)
         {
 			fallingVelocity.y = Mathf.Sqrt(gravity * jumpHeight) + gameController.getIntensity() * gameController.pillsBoostJump;
         }
@@ -68,11 +68,13 @@ public class RunnerController : MonoBehaviour {
 		//Pour les test :
         if (Input.GetKeyDown("escape"))
         {
-                Cursor.lockState = CursorLockMode.None;
+			Cursor.lockState = CursorLockMode.None;
+			gameController.isPaused = true;
         }
 		if (Input.GetButtonDown("Fire1"))
 		{
 			Cursor.lockState = CursorLockMode.Locked;
+			gameController.isPaused = false;
 		}
 		testDisplay.text += "\nMove forward: " + (moveDirForward.magnitude) + " " + (moveDirForward.magnitude * Time.deltaTime);
     }

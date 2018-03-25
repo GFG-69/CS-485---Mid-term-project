@@ -59,6 +59,8 @@ public class GameController : MonoBehaviour {
 	private float randPZ6;
 	private float randPZ7;
 
+	public bool isPaused;
+	public float timeBeforeStarting;
 	public float BlueIntensity;
 	public float DurationOfAwake;
 	public float movementIntensity;
@@ -83,7 +85,10 @@ public class GameController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		setIntensity ();
-		Time.timeScale = 1.0f - pillsIntensity;
+		if (!isPaused)
+			Time.timeScale = 1.0f - pillsIntensity;
+		else
+			Time.timeScale = 0.0f;
 		drunkIntensity = getDrunkIntensity();
 		//affiche les tests
 		if (DurationOfSlowing - Time.time > 0.0f)

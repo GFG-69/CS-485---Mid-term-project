@@ -35,8 +35,10 @@ public class VisionFilter : MonoBehaviour {
 		{
 			color = FilterBlack.GetColor ("_Color");
 			color.a = 0.0f;
-			if (Time.time < 3)
-				color.a = 3 - Time.time;
+			if (Time.time < gameController.timeBeforeStarting)
+			{
+				color.a = (gameController.timeBeforeStarting - Time.time) / gameController.timeBeforeStarting;
+			}
 			else if (gameController.getTimeOfSleeping () - Time.time < 3)
 				color.a = (3 - gameController.getTimeOfSleeping () + Time.time) / 3;
 		}

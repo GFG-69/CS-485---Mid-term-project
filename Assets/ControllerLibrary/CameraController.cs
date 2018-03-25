@@ -27,8 +27,10 @@ public class CameraController : MonoBehaviour {
 
 	void Update()
 	{
-		Camera.main.fieldOfView = 60.0f + gameController.getDrunkenCameraFocal();
-		Camera.main.transform.Rotate(0.0f, 0.0f, gameController.getDrunkenCameraZ ());
+		if (!gameController.isPaused && Time.time > gameController.timeBeforeStarting) {
+			Camera.main.fieldOfView = 60.0f + gameController.getDrunkenCameraFocal ();
+			Camera.main.transform.Rotate (0.0f, 0.0f, gameController.getDrunkenCameraZ ());
+		}
 	}
 
     void LateUpdate()
