@@ -37,10 +37,10 @@ public class MouseCameraController : MonoBehaviour {
         smoothV.y = Mathf.Lerp(smoothV.y, avg.y, 1f / smoothing);
         mouseLook += smoothV;
         mouseLook.y = Mathf.Clamp(mouseLook.y, -90f, 90f);
-        if (Cursor.lockState == CursorLockMode.Locked)
+		if (Cursor.lockState == CursorLockMode.Locked && !gameController.getIsAsleep())
         {
 			transform.localRotation = Quaternion.AngleAxis(-mouseLook.y + gameController.getDrunkenCameraX(), Vector3.right);
-			player.transform.localRotation = Quaternion.AngleAxis(mouseLook.x + gameController.getDrunkenCameraY(), player.transform.up);
+			player.transform.localRotation = Quaternion.AngleAxis(mouseLook.x + 180 + gameController.getDrunkenCameraY(), player.transform.up);
         }
     }
 }

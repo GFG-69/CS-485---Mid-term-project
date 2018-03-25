@@ -9,6 +9,7 @@ public class GameController : MonoBehaviour {
 	private float TimeOfSlowing;
 	private float pillsIntensity;
 	private float drunkIntensity;
+	private float TimeOfSleeping;
 
 	private float randCF1;
 	private float randCF2;
@@ -58,6 +59,8 @@ public class GameController : MonoBehaviour {
 	private float randPZ6;
 	private float randPZ7;
 
+	public float BlueIntensity;
+	public float DurationOfAwake;
 	public float movementIntensity;
 	public float drunkIntensityMin;
 	public float pillsBoostSpeed;
@@ -74,6 +77,7 @@ public class GameController : MonoBehaviour {
 		pillsIntensity = 0.0f;
 		DisplayingTime.text = "";
 		setDrunkenRandom ();
+		TimeOfSleeping = Time.time + DurationOfAwake + 3;
 	}
 
 	// Update is called once per frame
@@ -85,7 +89,7 @@ public class GameController : MonoBehaviour {
 		if (DurationOfSlowing - Time.time > 0.0f)
 			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + pillsIntensity;
 		else
-			DisplayingTime.text = "";
+			DisplayingTime.text = "Time before getting asleep: " + (TimeOfSleeping - Time.time);
 	}
 
 	private void setIntensity() {
@@ -103,7 +107,16 @@ public class GameController : MonoBehaviour {
 		if (pillsIntensity == 0.0f) {
 			DurationOfSlowing = Time.time + DurationOfRising + DurationOfPlateau + DurationOfDecreasing;
 			TimeOfSlowing = Time.time;
+			TimeOfSleeping = DurationOfSlowing + DurationOfAwake;
 		}
+	}
+
+	public bool getIsAsleep () {
+		return (Time.time > TimeOfSleeping);
+	}
+
+	public float getTimeOfSleeping () {
+		return (TimeOfSleeping);
 	}
 
 	public float getIntensity() {

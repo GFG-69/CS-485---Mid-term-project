@@ -47,16 +47,19 @@ public class RunnerController : MonoBehaviour {
 		Vector3 moveDirSide = transform.right * horiz * speed * freezeIntensity;
 		Vector3 moveDirForward = transform.forward * vert * speed * freezeIntensity;
 
-        controller.Move(moveDirSide * Time.deltaTime);
-        controller.Move(moveDirForward * Time.deltaTime);
-		transform.position += new Vector3 (gameController.getDrunkenPlayerX(), 0, gameController.getDrunkenPlayerZ());
+		if (!gameController.getIsAsleep ())
+		{
+        	controller.Move(moveDirSide * Time.deltaTime);
+        	controller.Move(moveDirForward * Time.deltaTime);
+			transform.position += new Vector3 (gameController.getDrunkenPlayerX (), 0, gameController.getDrunkenPlayerZ ());
+		}
 
         bool isOnStructure = Physics.CheckSphere(feet.position, 0.1f, structure, QueryTriggerInteraction.Ignore);
         if (isOnStructure)
             fallingVelocity.y = 0f;
         else
             fallingVelocity.y -= gravity * Time.deltaTime;
-        if (Input.GetButtonDown("Jump") && isOnStructure)
+		if (Input.GetButtonDown("Jump") && isOnStructure && !gameController.getIsAsleep())
         {
 			fallingVelocity.y = Mathf.Sqrt(gravity * jumpHeight) + gameController.getIntensity() * gameController.pillsBoostJump;
         }
