@@ -6,9 +6,10 @@ public class UpAndDownController : MonoBehaviour
 {
 
     public float speed = 3f;
+	public float length;
 
-    private float initY;
-    private Vector3 pos;
+	private float initY;
+	private Vector3 pos;
 
     private void Start()
     {
@@ -18,7 +19,7 @@ public class UpAndDownController : MonoBehaviour
 
     void Update()
     {
-        float newY = initY + Mathf.Sin(Time.time * speed);
+		float newY = initY + Mathf.Sin(Time.time * speed) * length;
         transform.position = new Vector3(pos.x, newY, pos.z);
     }
 }

@@ -65,17 +65,11 @@ public class RunnerController : MonoBehaviour {
         }
         controller.Move(fallingVelocity * Time.deltaTime);
 
-		//Pour les test :
         if (Input.GetKeyDown("escape"))
         {
 			Cursor.lockState = CursorLockMode.None;
 			gameController.isPaused = true;
         }
-		if (Input.GetButtonDown("Fire1"))
-		{
-			Cursor.lockState = CursorLockMode.Locked;
-			gameController.isPaused = false;
-		}
-		testDisplay.text += "\nMove forward: " + (moveDirForward.magnitude) + " " + (moveDirForward.magnitude * Time.deltaTime);
+		//testDisplay.text += "\nMove forward: " + (moveDirForward.magnitude) + " " + (moveDirForward.magnitude * Time.deltaTime);
     }
 }

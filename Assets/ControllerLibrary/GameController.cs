@@ -80,6 +80,7 @@ public class GameController : MonoBehaviour {
 		DisplayingTime.text = "";
 		setDrunkenRandom ();
 		TimeOfSleeping = Time.time + DurationOfAwake + 3;
+		Cursor.visible = false;
 	}
 
 	// Update is called once per frame
@@ -90,11 +91,18 @@ public class GameController : MonoBehaviour {
 		else
 			Time.timeScale = 0.0f;
 		drunkIntensity = getDrunkIntensity();
+		if (Time.time > TimeOfSleeping + 1)
+			DisplayingTime.text = "You fall asleep...\nGAME OVER";
+		if (Time.time > TimeOfSleeping + 4) {
+			Cursor.visible = true;
+			Cursor.lockState = CursorLockMode.None;
+			UnityEngine.SceneManagement.SceneManager.LoadScene ("_Scenes/Menu");
+		}
 		//affiche les tests
-		if (DurationOfSlowing - Time.time > 0.0f)
+		/*if (DurationOfSlowing - Time.time > 0.0f)
 			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + pillsIntensity;
 		else
-			DisplayingTime.text = "Time before getting asleep: " + (TimeOfSleeping - Time.time);
+			DisplayingTime.text = "Time before getting asleep: " + (TimeOfSleeping - Time.time);*/
 	}
 
 	private void setIntensity() {
