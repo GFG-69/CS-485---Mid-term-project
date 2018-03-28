@@ -47,7 +47,7 @@ public class RunnerController : MonoBehaviour {
 		Vector3 moveDirSide = transform.right * horiz * speed * freezeIntensity;
 		Vector3 moveDirForward = transform.forward * vert * speed * freezeIntensity;
 
-		if (!gameController.getIsAsleep () && !gameController.isPaused && Time.time > gameController.timeBeforeStarting)
+		if (!gameController.getIsAsleep () && !gameController.isPaused && Time.timeSinceLevelLoad > gameController.timeBeforeStarting)
 		{
         	controller.Move(moveDirSide * Time.deltaTime);
         	controller.Move(moveDirForward * Time.deltaTime);

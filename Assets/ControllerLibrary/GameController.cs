@@ -10,6 +10,9 @@ public class GameController : MonoBehaviour {
 	private float pillsIntensity;
 	private float drunkIntensity;
 	private float TimeOfSleeping;
+	public float TimeOfWin;
+	private bool isAlive;
+	private bool win;
 
 	private float randCF1;
 	private float randCF2;
@@ -72,6 +75,8 @@ public class GameController : MonoBehaviour {
 	public float DurationOfPlateau;
 	public float DurationOfDecreasing;
 	public Text DisplayingTime;
+	public AudioSource citySound;
+	public AudioSource pillSound;
 
 	// Use this for initialization
 	void Start () {
@@ -81,28 +86,58 @@ public class GameController : MonoBehaviour {
 		setDrunkenRandom ();
 		TimeOfSleeping = Time.time + DurationOfAwake + 3;
 		Cursor.visible = false;
+		isAlive = true;
+		win = false;
 	}
 
 	// Update is called once per frame
 	void Update () {
 		setIntensity ();
+		setSounds ();
 		if (!isPaused)
 			Time.timeScale = 1.0f - pillsIntensity;
 		else
 			Time.timeScale = 0.0f;
 		drunkIntensity = getDrunkIntensity();
-		if (Time.time > TimeOfSleeping + 1)
-			DisplayingTime.text = "You fall asleep...\nGAME OVER";
+		if (Time.time > TimeOfSleeping + 1) {
+			if (win)
+				DisplayingTime.text = "You fall asleep in your bed !\nGAME WIN\nin " + TimeOfWin + "s";
+			else if (isAlive)
+				DisplayingTime.text = "You fall asleep...\nGAME OVER";
+			else
+				DisplayingTime.text = "You died...\nGAME OVER";
+		}
 		if (Time.time > TimeOfSleeping + 4) {
 			Cursor.visible = true;
 			Cursor.lockState = CursorLockMode.None;
 			UnityEngine.SceneManagement.SceneManager.LoadScene ("_Scenes/Menu");
 		}
-		//affiche les tests
-		/*if (DurationOfSlowing - Time.time > 0.0f)
-			DisplayingTime.text = "Time before getting normal: " + (DurationOfSlowing - Time.time) + "\nIntensity: " + pillsIntensity;
-		else
-			DisplayingTime.text = "Time before getting asleep: " + (TimeOfSleeping - Time.time);*/
+	}
+
+	public void setSounds ()
+	{
+		pillSound.volume = pillsIntensity / IntensityMax;
+		citySound.volume = 1.0f - 0.5f * (pillsIntensity / IntensityMax);
+		if (TimeOfSleeping - Time.time < 3)
+			citySound.volume = citySound.volume - (Time.time + 3 - TimeOfSleeping) / 3;
+	}
+
+	public void Winning ()
+	{
+		TimeOfWin = Time.timeSinceLevelLoad - 3;
+		win = true;
+	}
+
+	public void Losing ()
+	{
+		win = false;
+	}
+
+	public void KillThePlayer () {
+		isAlive = false;
+		TimeOfSleeping = Time.time;
+		DurationOfSlowing = 0.0f;
+		pillsIntensity = 0.0f;
 	}
 
 	private void setIntensity() {

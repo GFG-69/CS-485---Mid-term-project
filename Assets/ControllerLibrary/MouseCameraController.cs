@@ -30,7 +30,7 @@ public class MouseCameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Cursor.lockState == CursorLockMode.Locked && !gameController.getIsAsleep() && !gameController.isPaused && Time.time > gameController.timeBeforeStarting)
+		if (Cursor.lockState == CursorLockMode.Locked && !gameController.getIsAsleep() && !gameController.isPaused && Time.timeSinceLevelLoad > gameController.timeBeforeStarting)
 		{
         	var avg = new Vector2(Input.GetAxisRaw("Mouse X"), Input.GetAxisRaw("Mouse Y"));
         	avg = Vector2.Scale(avg, new Vector2(sensivity * smoothing, sensivity * smoothing));
